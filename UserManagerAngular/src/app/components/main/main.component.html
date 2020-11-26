@@ -1,3 +1,53 @@
-<p>
-  main works!
-</p>
+<div class="container main-padding">
+  <div class="text-center title">
+    <h2>Users Data</h2>
+  </div>
+  <div class="mat-elevation-z8">
+    <div>
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.userid}} </td>
+        </ng-container>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef> UserName </th>
+          <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+        </ng-container>
+        <ng-container matColumnDef="firstname">
+          <th mat-header-cell *matHeaderCellDef> Firstname </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+        </ng-container>
+        <ng-container matColumnDef="lastname">
+          <th mat-header-cell *matHeaderCellDef> Lastname </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+        </ng-container>
+        <ng-container matColumnDef="documenttype">
+          <th mat-header-cell *matHeaderCellDef> Document Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.documentType}} </td>
+        </ng-container>
+        <ng-container matColumnDef="document">
+          <th mat-header-cell *matHeaderCellDef> Document </th>
+          <td mat-cell *matCellDef="let element"> {{element.document}} </td>
+        </ng-container>
+        <ng-container matColumnDef="rol">
+          <th mat-header-cell *matHeaderCellDef> Rol </th>
+          <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+        </ng-container>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>Editar</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-mini-fab color="primary" (click)="editUser(element)">
+              <mat-icon>menu</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  <div class="text-center addButton">
+    <button mat-raised-button (click)="newUser()" color="primary">Add User</button>
+  </div>
+</div>

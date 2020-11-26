@@ -1,0 +1,24 @@
+.example-form {
+    padding-top: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  .title{
+    color: midnightblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 2%;
+  }
+  .fontWithe{
+    background-color: mintcream;
+  }
+  .addButton{
+    padding-bottom: 3%;
+  }
+
+  

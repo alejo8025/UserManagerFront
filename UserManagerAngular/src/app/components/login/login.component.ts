@@ -11,8 +11,8 @@ import { DataGlobalService } from '../../services/data.services/data-global.serv
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public inputPassword: string;
-  public inputUsername: string;
+  public user: string;
+  public password: string;
   constructor(
     private router: Router,
     private tokenServices: TokenService,
@@ -40,9 +40,9 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let body = {
-      "userName": this.inputUsername,
-      "password": this.inputPassword
+    const body = {
+      userName: this.user,
+      password: this.password
     };
     this.dataGlobalService.loading = true;
     this.apiService.postLogin(body).subscribe((res: ResultModel) => {
@@ -51,21 +51,20 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(res.data));
         this.dataGlobalService.userName = `${res.data.firstname} ${res.data.lastname}!`;
         this.dataGlobalService.loading = false;
-
         this.router.navigateByUrl('/main');
       } else {
-        let message;
+        let message: string;
         if (res.returnMessage === 'Wrong user or password') {
           message = 'Usuario o contraseña incorrecta';
         } else {
           message = 'Usuario no autorizado';
         }
-        this.inputUsername = '';
-        this.inputPassword = '';
+        this.user = '';
+        this.password = '';
+        alert(message);
       }
     }, () => {
-
-
+      alert('No fue posible la autenticación del usuario');
     });
   }
 

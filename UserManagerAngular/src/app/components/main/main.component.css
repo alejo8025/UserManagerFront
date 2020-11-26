@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+  }
+
+  .main-padding{
+    padding: 3%;
+  }
+  .title{
+    color: midnightblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 1%;
+  }
+
+  .addButton{
+    margin-top: 3%;
+  }
+

@@ -1,12 +1,17 @@
 
 <div class="text-center">
-  <form class="form-signin">
-      <img class="mb-4" src="../../../assets/img/alphalogo.png" alt="" width="160" height="150">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <form form id="loginform" (ngSubmit)="login()" class="form-signin" #forma="ngForm">
+      <img class="mb-4" src="../../../assets/img/lobo2.png" alt="" width="160" height="150">
       <label for="inputUsername" class="sr-only">Username</label>
-      <input type="text" id="inputUsername" class="form-control" placeholder="Username" required="" autofocus="">
+      <input type="text" class="form-control form-control-sm formLoginTitles" [ngClass]="{'is-invalid': (username.errors?.required) && username.touched}" id="user" placeholder="Usuario" [(ngModel)]="user" name="user" required #username="ngModel" autocomplete="off">
+                                <div class="invalid-feedback" *ngIf="username.errors?.required">
+                                    El campo Usuario es requerido
+                                </div>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      <input type="password" class="form-control form-control-sm formLoginTitles" [ngClass]="{'is-invalid': (pass.errors?.required) && pass.touched}" id="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required #pass="ngModel" autocomplete="off">
+                                <div class="invalid-feedback" *ngIf="pass.errors?.required">
+                                    El campo Contraseña es requerido
+                                </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">©2020</p>
   </form>

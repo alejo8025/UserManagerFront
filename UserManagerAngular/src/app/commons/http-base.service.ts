@@ -23,12 +23,6 @@ export class HttpUtilsService {
 
     if (token) {
       headers = headers.append('Authorization', 'Bearer ' + token);
-      const tokenValidate = this.jwt.isTokenExpired();
-
-      if (tokenValidate) {
-        this.router.navigateByUrl('/login');
-        return;
-      }
     } else {
       headers = headers.append('ClientId', environment.clientId);
     }

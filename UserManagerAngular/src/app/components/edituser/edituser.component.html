@@ -1,3 +1,26 @@
-<p>
-  edituser works!
-</p>
+<div class="container">
+  <div class="text-center title">
+    <h2>Edit User</h2>
+  </div>
+  <form class="text-center example-form fontWithe">
+    <mat-form-field class="example-full-width">
+      <input type="hidden" [(ngModel)]="editUserModel.userId" name="userId" value="{{editUserModel.userId}}" >
+      <mat-label>Firstname</mat-label>
+      <input [(ngModel)]="editUserModel.firstname" name="firstname" matInput placeholder="Ex. Alejandro" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Lastname</mat-label>
+      <input  [(ngModel)]="editUserModel.lastname" name="lastname" matInput placeholder="Ex. Giraldo Jurado" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Rol</mat-label>
+      <mat-select id="selectRol"  [(ngModel)]="editUserModel.rol" name="rol">
+        <mat-option *ngFor="let rolUser of rolesList" [value]="rolUser.rol">{{ rolUser.rol }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="text-center addButton">
+      <button mat-raised-button (click)="editUser()" color="primary">Save Change</button>
+    </div>
+  </form>
+</div>
+

@@ -1,1 +1,11 @@
-<router-outlet  class="bg-site"></router-outlet>
+<div class="topStyle">
+    <button mat-fab color="primary" (click)="home()">
+        <mat-icon>home</mat-icon>
+      </button>
+    <button  mat-fab color="warm" class="close" (click)="exit()">
+        <mat-icon>home</mat-icon>
+      </button>
+</div>
+<div>
+    <router-outlet></router-outlet>
+</div>

@@ -5,9 +5,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { DataGlobalService } from 'src/app/services/data.services/data-global.service';
 import { RolModel } from 'src/app/models/rolModel';
 import { DocumentTypeModel } from 'src/app/models/documentTypeModel';
-import { NewUserModel } from 'src/app/models/newUserModel';
 import { ResultModel } from 'src/app/models/resultModel';
 import { EditUserModel } from 'src/app/models/editUserModel';
+import { MessageGlobalService } from '../../services/data.services/message-global.service';
 
 @Component({
   selector: 'app-edituser',
@@ -21,7 +21,8 @@ export class EdituserComponent implements OnInit {
   disableSelect = new FormControl(false);
   constructor(private router: Router,
               private apiService: ApiService,
-              public dataGlobalService: DataGlobalService) { }
+              public dataGlobalService: DataGlobalService,
+              public messageGlobalService: MessageGlobalService) { }
 
   ngOnInit() {
     const userLogin = localStorage.getItem('user');
@@ -46,11 +47,13 @@ export class EdituserComponent implements OnInit {
     console.log(this.editUserModel);
     this.apiService.editUser(this.editUserModel).subscribe((res: ResultModel) => {
       if (res.isSuccess) {
-        alert('User update success');
+        this.messageGlobalService.showErrorMessage('success', 'User register success');
         this.router.navigateByUrl('/main');
       } else {
-        alert('User update unsuccess');
+        this.messageGlobalService.showErrorMessage('error', res.returnMessage);
       }
+    }, () => {
+      this.messageGlobalService.showErrorMessage('error', 'Error connection service');
     });
   }
 

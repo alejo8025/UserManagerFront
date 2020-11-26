@@ -4,6 +4,7 @@ import { TokenService } from '../../services/token.service';
 import { ApiService } from '../../services/api.service';
 import { ResultModel } from '../../models/resultModel';
 import { DataGlobalService } from '../../services/data.services/data-global.service';
+import { MessageGlobalService } from '../../services/data.services/message-global.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private tokenServices: TokenService,
     private apiService: ApiService,
-    public dataGlobalService: DataGlobalService
+    public dataGlobalService: DataGlobalService,
+    public messageGlobalService: MessageGlobalService
   ) {
     localStorage.clear();
     this.GenerateTokenAplication();
@@ -61,10 +63,10 @@ export class LoginComponent implements OnInit {
         }
         this.user = '';
         this.password = '';
-        alert(message);
+        this.messageGlobalService.showErrorMessage('error', message);
       }
     }, () => {
-      alert('No fue posible la autenticación del usuario');
+      this.messageGlobalService.showErrorMessage('error', 'No fue posible la autenticación del usuario');
     });
   }
 

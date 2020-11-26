@@ -6,25 +6,23 @@ import { ResultModel } from 'src/app/models/resultModel';
 import { UserModelDto } from 'src/app/models/userModelDto';
 import { ApiService } from 'src/app/services/api.service';
 import { DataGlobalService } from 'src/app/services/data.services/data-global.service';
+import { MessageGlobalService } from '../../services/data.services/message-global.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit {
   displayedColumns: string[] = ['id', 'username', 'firstname', 'lastname', 'documenttype', 'document', 'rol', 'select'];
   public dataSource = new MatTableDataSource<UserModelDto>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private router: Router,
               private apiService: ApiService,
-              public dataGlobalService: DataGlobalService
+              public dataGlobalService: DataGlobalService,
+              public messageGlobalService: MessageGlobalService
     ) { }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
   ngOnInit() {
     const userLogin = localStorage.getItem('user');
@@ -42,9 +40,12 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.apiService.getAllUser().subscribe((res: ResultModel) => {
       if (res.isSuccess) {
         this.dataSource = new MatTableDataSource<UserModelDto>(res.data);
+        this.dataSource.paginator = this.paginator;
+      } else {
+        this.messageGlobalService.showErrorMessage('error', res.returnMessage);
       }
     }, () => {
-
+      this.messageGlobalService.showErrorMessage('error', 'Error connection service');
     });
   }
 

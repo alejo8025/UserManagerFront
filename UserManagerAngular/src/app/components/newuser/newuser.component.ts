@@ -7,6 +7,7 @@ import { RolModel } from 'src/app/models/rolModel';
 import { DocumentTypeModel } from 'src/app/models/documentTypeModel';
 import { NewUserModel } from 'src/app/models/newUserModel';
 import { ResultModel } from 'src/app/models/resultModel';
+import { MessageGlobalService } from '../../services/data.services/message-global.service';
 
 @Component({
   selector: 'app-newuser',
@@ -20,7 +21,8 @@ export class NewuserComponent implements OnInit {
   disableSelect = new FormControl(false);
   constructor(private router: Router,
               private apiService: ApiService,
-              public dataGlobalService: DataGlobalService) { }
+              public dataGlobalService: DataGlobalService,
+              public messageGlobalService: MessageGlobalService) { }
 
   ngOnInit() {
     const userLogin = localStorage.getItem('user');
@@ -42,11 +44,13 @@ export class NewuserComponent implements OnInit {
     console.log(this.newUserModel);
     this.apiService.saveNewUser(this.newUserModel).subscribe((res: ResultModel) => {
       if (res.isSuccess) {
-        alert('User register success');
+        this.messageGlobalService.showErrorMessage('success', 'User register success');
         this.router.navigateByUrl('/main');
       } else {
-        alert('User register unsuccess');
+        this.messageGlobalService.showErrorMessage('error', res.returnMessage);
       }
+    }, () => {
+      this.messageGlobalService.showErrorMessage('error', 'Error connection service');
     });
   }
 
